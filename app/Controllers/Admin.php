@@ -76,8 +76,22 @@ class Admin extends BaseController
         return redirect()->back()->with('success', 'Данные обновлены!');
     }
 
+    /**
+     * @throws ReflectionException
+     */
     public function saveCategory(): string|RedirectResponse
     {
-        
+        $model = new CategoryModel();
+        $data = [
+            'name"' => $this->request->getPost('name'),
+        ];
+        $id = $this->request->getPost('id');
+        if ($model->where('id', $id)->set($data)->update() === false)
+        {
+            return redirect()->back()->withInput()->with('errors', $model->errors());
+        }
+
+        return redirect()->back()->with('success', 'Данные обновлены!');
+
     }
 }
