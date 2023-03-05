@@ -20,12 +20,12 @@ class Admin extends BaseController
             exit;
         }
     }
-    public function products():string
+    public function products(): string
     {
         return view("admin/products", $this->data);
     }
 
-    public function categories():string
+    public function categories(): string
     {
         return view("admin/categories", $this->data);
     }
