@@ -6,11 +6,15 @@ use App\Controllers\BaseController;
 use App\Models\CategoryModel;
 use App\Models\ProductModel;
 use CodeIgniter\HTTP\RedirectResponse;
+use ReflectionException;
 
 class Admin extends BaseController
 {
+    private array $data;
+
     public function __construct()
     {
+        $this->data['title'] = 'Администрирование';
         if (session()->get('user_group') !== '2') {
             echo 'Доступ запрещен!';
             exit;
@@ -18,26 +22,22 @@ class Admin extends BaseController
     }
     public function products():string
     {
-        $data['title'] = 'Администрирование';
-        return view("admin/products", $data);
+        return view("admin/products", $this->data);
     }
 
     public function categories():string
     {
-        $data['title'] = 'Администрирование';
-        return view("admin/categories", $data);
+        return view("admin/categories", $this->data);
     }
 
     public function addProduct(): string
     {
-        $data['title'] = 'Администрирование';
-        return view("admin/add_product", $data);
+        return view("admin/add_product", $this->data);
     }
 
     public function addCategory(): string
     {
-        $data['title'] = 'Администрирование';
-        return view("admin/add_category", $data);
+        return view("admin/add_category", $this->data);
     }
 
     public function editProduct($id = null): string
@@ -52,25 +52,25 @@ class Admin extends BaseController
         return view('admin/edit_category', ['category' => $model->find($id)]);
     }
 
+    /**
+     * @throws ReflectionException
+     */
     public function saveProduct(): string|RedirectResponse
     {
-
+        $model = new ProductModel();
         $data = [
-            'open_date' => $this->request->getPost('open_date'),
-            'open_time' => $this->request->getPost('open_time'),
-            'closed_date' => $this->request->getPost('closed_date'),
-            'closed_time' => $this->request->getPost('closed_time'),
-            'status' => $this->request->getPost('status'),
-            'initiator' => $this->request->getPost('initiator'),
-            'region' => $this->request->getPost('region'),
+            'name"' => $this->request->getPost('name'),
+            'cost' => $this->request->getPost('cost'),
+            'category' => $this->request->getPost('category'),
+            'image' => $this->request->getPost('image'),
             'description' => $this->request->getPost('description'),
         ];
 
         $id = $this->request->getPost('id');
 
-        if ($this->model->where('id', $id)->set($data)->update() === false)
+        if ($model->where('id', $id)->set($data)->update() === false)
         {
-            return redirect()->back()->withInput()->with('errors', $this->model->errors());
+            return redirect()->back()->withInput()->with('errors', $model->errors());
         }
 
         return redirect()->back()->with('success', 'Данные обновлены!');
@@ -78,6 +78,6 @@ class Admin extends BaseController
 
     public function saveCategory(): string|RedirectResponse
     {
-
+        
     }
 }
