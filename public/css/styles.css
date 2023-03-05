@@ -1,0 +1,50 @@
+html, body {
+    height: 100%;
+}
+body {
+    display: flex;
+    flex-direction: column;
+}
+header {
+    background-color: #242529;
+}
+
+.content {
+    flex: 1 0 auto;
+}
+.btn-login {
+    background-color: #3d85a4;
+    color: #adf4ff;
+    border-radius: 14px;
+}
+.btn-login-active:hover {
+    color: #040d0e;
+    background-color: #1f6b8b;
+}
+.btn-login:hover {
+    background-color: #1f6b8b;
+}
+.btn-login-active {
+    background-color: #12aff5;
+    color: #adf4ff;
+    border-radius: 14px;
+}
+.margin-right-10 {
+    margin-right: 10px;
+}
+.register-form {
+    margin: auto;
+    max-width: 500px;
+}
+.logo-10 {
+    font-size: 12px;
+}
+.margin-0 {
+    margin: 0;
+}
+.catalog {
+    max-width: 800px;
+    margin: auto;
+}
+
+
