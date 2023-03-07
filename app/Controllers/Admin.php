@@ -47,12 +47,6 @@ class Admin extends BaseController
 
     public function addProduct(): string
     {
-        $categoryModel = new CategoryModel();
-        $categories = $categoryModel
-            ->orderBy('id', 'asc')
-            ->findAll();
-        $this->data['categories'] = $categories;
-
         return view("admin/add_product", $this->data);
     }
 
@@ -111,15 +105,14 @@ class Admin extends BaseController
      */
     public function createCategory(): RedirectResponse
     {
-        $model = new CategoryModel();
         $dataCategory = $this->request->getPost();
 
         $category = new Category();
         $category->fill($dataCategory);
 
-        if ($model->insert($category) === false)
+        if ($this->categoryModel->insert($category) === false)
         {
-            return redirect()->back()->withInput()->with('errors', $model->errors());
+            return redirect()->back()->withInput()->with('errors', $this->categoryModel->errors());
         }
 
         return redirect()->back()->with('success', 'Категория успешно добавлена!');
@@ -133,8 +126,7 @@ class Admin extends BaseController
 
     public function editCategory($id = null): string
     {
-        $model = new CategoryModel();
-        $this->data['category'] = $model->find($id);
+        $this->data['category'] = $this->categoryModel->find($id);
         return view('admin/edit_category', $this->data);
     }
 
