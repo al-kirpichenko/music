@@ -7,16 +7,24 @@ use App\Entities\Category;
 use App\Entities\Product;
 use App\Models\CategoryModel;
 use App\Models\ProductModel;
+use CodeIgniter\Files\File;
 use CodeIgniter\HTTP\RedirectResponse;
 use ReflectionException;
 
 class Admin extends BaseController
 {
     private array $data;
+    private CategoryModel $categoryModel;
+    private array $categories;
 
     public function __construct()
     {
         $this->data['title'] = 'Администрирование';
+        $this->categoryModel = new CategoryModel();
+        $this->data['categories'] = $this->categoryModel
+            ->orderBy('id', 'asc')
+            ->findAll();
+
         if (session()->get('user_group') !== '2') {
             echo 'Доступ запрещен!';
             exit;
@@ -34,13 +42,7 @@ class Admin extends BaseController
 
     public function categories(): string
     {
-        $model = new CategoryModel();
-        $categories = $model
-            ->orderBy('id', 'asc')
-            ->findAll();
-        $this->data['categories'] = $categories;
         return view('admin/categories', $this->data);
-
     }
 
     public function addProduct(): string
@@ -57,20 +59,45 @@ class Admin extends BaseController
     /**
      * @throws ReflectionException
      */
-    public function createProduct(): RedirectResponse
+    public function createProduct(): string|RedirectResponse
     {
         $model = new ProductModel();
+
+        $rules =[
+            'upload' => [
+                'rules' => 'uploaded[upload]|max_size[upload,1024]|is_image[upload]',
+                'label' => 'upload',
+            ]
+        ];
+        if($this->validate($rules)) {
+
+        $uploadedFile = $this->request->getFile('upload');
+
+        $path = $uploadedFile->store();
+
+        $filepath = WRITEPATH . $path;
+
+        $file = new File($filepath);
+
+
+
         $dataProduct = $this->request->getPost();
+            $dataProduct['image'] = $path;
 
-        $product = new Product();
-        $product->fill($dataProduct);
 
-        if ($model->insert($product) === false)
-        {
-            return redirect()->back()->withInput()->with('errors', $model->errors());
+            $product = new Product();
+            $product->fill($dataProduct);
+
+            if ($model->insert($product) === false) {
+                return redirect()->back()->withInput()->with('errors', $model->errors());
+            }
+
+            return redirect()->back()->with('success', 'Товар успешно добавлен!');
         }
 
-        return redirect()->back()->with('success', 'Товар успешно добавлен!');
+        $this->data['validation'] = $this->validator;
+
+        return view("admin/add_product", $this->data);
     }
 
 

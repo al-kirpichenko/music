@@ -32,7 +32,7 @@ use App\Entities\Category;
             </div>
         <?php endif ?>
 
-        <form action="<?= base_url()?>/admin/save-product" method="post" class="register-form">
+        <form action="<?= base_url()?>/admin/create-product" method="post" class="register-form" enctype="multipart/form-data">
             <div class="mb-3">
                 <label for="name" class="form-label">Наименование</label>
                 <input type="text" name="name" class="form-control" id="name"
@@ -40,7 +40,7 @@ use App\Entities\Category;
             </div>
             <div class="mb-3">
                 <label for="cost" class="form-label">Цена</label>
-                <input type="number" name="surname" class="form-control" id="cost"
+                <input type="number" name="cost" class="form-control" id="cost"
                        value="" required>
             </div>
             <div class="mb-3">
@@ -53,9 +53,9 @@ use App\Entities\Category;
                 </select>
             </div>
             <div class="mb-3">
-                <label for="image" class="form-label">Изображение</label>
-                <input type="file" name="image" class="form-control" id="image"
-                       value="" required>
+                <label for="upload" class="form-label">Изображение</label>
+                <input type="file" name="upload" class="form-control" id="upload"
+                       value="" required >
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Характеристики</label>
