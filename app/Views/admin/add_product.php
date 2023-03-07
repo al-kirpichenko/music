@@ -1,3 +1,14 @@
+<?php
+/**
+ * $data array holds the $user value
+ * @see \App\Controllers\Admin::addProduct()
+ * @var Category $category
+ * @var array $categories
+ */
+
+use App\Entities\Category;
+
+?>
 <?= $this->extend("layouts/layout") ?>
 <?= $this->section("content") ?>
 <main class="content">
@@ -36,9 +47,9 @@
                 <label for="category" class="form-label">Категория</label>
                 <select name="category" class="form-control" id="category"
                         required>
-                    <option value="1">Струнные</option>
-                    <option value="2">Клавишные</option>
-                    <option value="3">Ударные</option>
+                    <?php foreach ($categories as $category): ?>
+                    <option value="<?= $category->id ?>"><?= $category->name ?></option>
+                    <?php endforeach ?>
                 </select>
             </div>
             <div class="mb-3">

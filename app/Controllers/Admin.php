@@ -45,6 +45,12 @@ class Admin extends BaseController
 
     public function addProduct(): string
     {
+        $categoryModel = new CategoryModel();
+        $categories = $categoryModel
+            ->orderBy('id', 'asc')
+            ->findAll();
+        $this->data['categories'] = $categories;
+
         return view("admin/add_product", $this->data);
     }
 
