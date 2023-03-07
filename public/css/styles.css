@@ -47,4 +47,10 @@ header {
     margin: auto;
 }
 
+.catalog img {
+    float: left;
+    width:  240px;
+    height: 240px;
+    object-fit: cover;
+}
 

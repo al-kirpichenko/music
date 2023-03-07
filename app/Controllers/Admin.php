@@ -33,10 +33,9 @@ class Admin extends BaseController
     public function products(): string
     {
         $model = new ProductModel();
-        $products = $model
+        $this->data['products'] = $model
             ->orderBy('id', 'asc')
             ->findAll();
-        $this->data['products'] = $products;
         return view("admin/products", $this->data);
     }
 
@@ -69,7 +68,7 @@ class Admin extends BaseController
 
         $path = $uploadedFile->store();
 
-        $filepath = WRITEPATH . $path;
+        $filepath = ROOTPATH.'public/uploads/' . $path;
 
         $file = new File($filepath);
 
