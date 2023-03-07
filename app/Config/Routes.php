@@ -44,6 +44,8 @@ $routes->get('/admin/add-product', 'Admin::addProduct', ['filter' => 'auth']);
 $routes->get('/admin/add-category', 'Admin::addCategory', ['filter' => 'auth']);
 $routes->post('/admin/save-product', 'Admin::saveProduct', ['filter' => 'auth']);
 $routes->post('/admin/save-category', 'Admin::saveCategory', ['filter' => 'auth']);
+$routes->post('/admin/create-category', 'Admin::createCategory', ['filter' => 'auth']);
+$routes->post('/admin/create-product', 'Admin::createProduct', ['filter' => 'auth']);
 $routes->get('admin/edit-product/(:num)', 'Admin::editProduct/$1', ['filter' => 'auth']);
 $routes->get('admin/edit-category/(:num)', 'Admin::editCategory/$1', ['filter' => 'auth']);
 

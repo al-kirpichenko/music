@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Entities\Category;
 use App\Models\CategoryModel;
 use App\Models\ProductModel;
 use CodeIgniter\HTTP\RedirectResponse;
@@ -27,7 +28,13 @@ class Admin extends BaseController
 
     public function categories(): string
     {
-        return view("admin/categories", $this->data);
+        $model = new CategoryModel();
+        $categories = $model
+            ->orderBy('id', 'asc')
+            ->findAll();
+        $this->data['categories'] = $categories;
+        return view('admin/categories', $this->data);
+
     }
 
     public function addProduct(): string
@@ -71,11 +78,10 @@ class Admin extends BaseController
     {
         $model = new CategoryModel();
 
-        $data = [
-            'name"' => $this->request->getPost('name'),
-        ];
+        $category = new Category();
+        $category->name = $this->request->getPost('name');
 
-        if ($model->insert($data) === false)
+        if ($model->insert($category) === false)
         {
             return redirect()->back()->withInput()->with('errors', $model->errors());
         }

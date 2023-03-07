@@ -14,31 +14,16 @@
             <th scope="col">Действия</th>
             </thead>
             <tbody>
+            <?php foreach ($categories as $category): ?>
             <tr>
-                <th scope="row">1</th>
-                <td>Струнные</td>
+                <th scope="row"><?= $category->id ?></th>
+                <td><?= $category->name ?></td>
                 <td>
                     <a class="btn btn-primary" href="#" role="button"><i class="bi bi-pen"></i></a>
                     <a class="btn btn-primary" href="#" role="button"><i class="bi bi-trash"></i></a>
                 </td>
             </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Клавишные</td>
-                <td>
-                    <a class="btn btn-primary" href="#" role="button"><i class="bi bi-pen"></i></a>
-                    <a class="btn btn-primary" href="#" role="button"><i class="bi bi-trash"></i></a>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Ударные</td>
-                <td>
-                    <a class="btn btn-primary" href="#" role="button"><i class="bi bi-pen"></i></a>
-                    <a class="btn btn-primary" href="#" role="button"><i class="bi bi-trash"></i></a>
-                </td>
-            </tr>
-
+            <?php endforeach ?>
             </tbody>
         </table>
     </div>

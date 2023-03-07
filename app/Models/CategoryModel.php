@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Entities\Category;
 use CodeIgniter\Model;
 
 class CategoryModel extends Model
@@ -11,10 +12,10 @@ class CategoryModel extends Model
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
-    protected $returnType       = 'array';
+    protected $returnType       = Category::class;
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = ['name'];
 
     // Dates
     protected $useTimestamps = false;
