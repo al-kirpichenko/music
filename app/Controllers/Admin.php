@@ -25,10 +25,10 @@ class Admin extends BaseController
     public function products(): string
     {
         $model = new ProductModel();
-        $categories = $model
+        $products = $model
             ->orderBy('id', 'asc')
             ->findAll();
-        $this->data['products'] = $categories;
+        $this->data['products'] = $products;
         return view("admin/products", $this->data);
     }
 

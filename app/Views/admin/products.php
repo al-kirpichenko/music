@@ -1,3 +1,14 @@
+<?php
+/**
+ * $data array holds the $user value
+ * @see \App\Controllers\Admin::products()
+ * @var Product $product
+ * @var array $products
+ */
+
+use App\Entities\Product;
+?>
+
 <?= $this->extend("layouts/layout") ?>
 <?= $this->section("content") ?>
 <main class="content">
@@ -16,33 +27,17 @@
             <th scope="col">Действия</th>
             </thead>
             <tbody>
+            <?php foreach ($products as $product): ?>
             <tr>
-                <th scope="row">1</th>
-                <td>Гитара</td>
-                <td>10000</td>
+                <th scope="row"><?= $product->id ?></th>
+                <td><?= $product->name ?></td>
+                <td><?= $product->cost ?></td>
                 <td>
                     <a class="btn btn-primary" href="#" role="button"><i class="bi bi-pen"></i></a>
                     <a class="btn btn-primary" href="#" role="button"><i class="bi bi-trash"></i></a>
                 </td>
             </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Гитара</td>
-                <td>10000</td>
-                <td>
-                    <a class="btn btn-primary" href="#" role="button"><i class="bi bi-pen"></i></a>
-                    <a class="btn btn-primary" href="#" role="button"><i class="bi bi-trash"></i></a>
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Гитара</td>
-                <td>10000</td>
-                <td>
-                    <a class="btn btn-primary" href="#" role="button"><i class="bi bi-pen"></i></a>
-                    <a class="btn btn-primary" href="#" role="button"><i class="bi bi-trash"></i></a>
-                </td>
-            </tr>
+            <?php endforeach ?>
             </tbody>
         </table>
     </div>
