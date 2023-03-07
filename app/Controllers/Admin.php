@@ -101,7 +101,8 @@ class Admin extends BaseController
     public function editCategory($id = null): string
     {
         $model = new CategoryModel();
-        return view('admin/edit_category', ['category' => $model->find($id)]);
+        $this->data['category'] = $model->find($id);
+        return view('admin/edit_category', $this->data);
     }
 
     /**
@@ -110,17 +111,12 @@ class Admin extends BaseController
     public function saveProduct(): RedirectResponse
     {
         $model = new ProductModel();
-        $data = [
-            'name"' => $this->request->getPost('name'),
-            'cost' => $this->request->getPost('cost'),
-            'category' => $this->request->getPost('category'),
-            'image' => $this->request->getPost('image'),
-            'description' => $this->request->getPost('description'),
-        ];
+        $dataProduct = $this->request->getPost();
 
-        $id = $this->request->getPost('id');
+        $product = new Product();
+        $product->fill($dataProduct);
 
-        if ($model->where('id', $id)->set($data)->update() === false)
+        if ($model->where('id', $product->id)->set($dataProduct)->update() === false)
         {
             return redirect()->back()->withInput()->with('errors', $model->errors());
         }
@@ -134,31 +130,31 @@ class Admin extends BaseController
     public function saveCategory(): RedirectResponse
     {
         $model = new CategoryModel();
-        $data = [
-            'name"' => $this->request->getPost('name'),
-        ];
-        $id = $this->request->getPost('id');
-        if ($model->where('id', $id)->set($data)->update() === false) {
+        $dataCategory = $this->request->getPost();
+
+        $category = new Category();
+        $category->fill($dataCategory);
+
+        if ($model->where('id', $category->id)->set($dataCategory)->update() === false) {
             return redirect()->back()->withInput()->with('errors', $model->errors());
         }
 
         return redirect()->back()->with('success', 'Данные обновлены!');
     }
 
-    public function removeCategory(): RedirectResponse
+    public function removeCategory(int $id = null): RedirectResponse
     {
         $model = new CategoryModel();
-        $id = $this->request->getPost('id');
+
         if ($model->delete($id) === false) {
             return redirect()->back()->withInput()->with('errors', $model->errors());
         }
         return redirect()->back()->with('success', 'Категория удалена!');
     }
 
-    public function removeProduct(): RedirectResponse
+    public function removeProduct(int $id = null): RedirectResponse
     {
         $model = new ProductModel();
-        $id = $this->request->getPost('id');
         if ($model->delete($id) === false) {
             return redirect()->back()->withInput()->with('errors', $model->errors());
         }

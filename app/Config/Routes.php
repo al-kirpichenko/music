@@ -48,6 +48,8 @@ $routes->post('/admin/create-category', 'Admin::createCategory', ['filter' => 'a
 $routes->post('/admin/create-product', 'Admin::createProduct', ['filter' => 'auth']);
 $routes->get('admin/edit-product/(:num)', 'Admin::editProduct/$1', ['filter' => 'auth']);
 $routes->get('admin/edit-category/(:num)', 'Admin::editCategory/$1', ['filter' => 'auth']);
+$routes->get('admin/remove-category/(:num)', 'Admin::removeCategory/$1', ['filter' => 'auth']);
+$routes->get('admin/remove-category/(:num)', 'Admin::removeCategory/$1', ['filter' => 'auth']);
 
 
 /*

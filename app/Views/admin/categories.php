@@ -31,7 +31,7 @@ use App\Entities\Category;
                 <td><?= $category->name ?></td>
                 <td>
                     <a class="btn btn-primary" href="<?= base_url()?>admin/edit-category/<?= $category->id?>" role="button"><i class="bi bi-pen"></i></a>
-                    <a class="btn btn-primary" href="#" role="button"><i class="bi bi-trash"></i></a>
+                    <a class="btn btn-primary" href="<?= base_url()?>admin/remove-category/<?= $category->id?>" role="button"><i class="bi bi-trash"></i></a>
                 </td>
             </tr>
             <?php endforeach ?>

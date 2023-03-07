@@ -1,3 +1,15 @@
+<?php
+/**
+ * $data array holds the $user value
+ * @see \App\Controllers\Admin::editProduct()
+ * @var Product $product
+ * @var array $products
+ */
+
+use App\Entities\Category;
+use App\Entities\Product;
+
+?>
 <?= $this->extend("layouts/layout") ?>
 <?= $this->section("content") ?>
 <main class="content">
@@ -23,6 +35,10 @@
 
 
         <form action="<?= base_url()?>/admin/save-product" method="post" class="register-form">
+            <div class="mb-3">
+                <input type="hidden" name="id" class="form-control" id="id"
+                       value="<?= $product->id ?>">
+            </div>
             <div class="mb-3">
                 <label for="name" class="form-label">Наименование</label>
                 <input type="text" name="name" class="form-control" id="name"
