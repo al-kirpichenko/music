@@ -4,7 +4,7 @@
     <div class="text-center">
         <h2>Добавить товар</h2>
 
-        <form action="/admin/save-product" method="post" class="register-form">
+        <form action="<?= base_url()?>/admin/save-product" method="post" class="register-form">
             <div class="mb-3">
                 <label for="name" class="form-label">Наименование</label>
                 <input type="text" name="name" class="form-control" id="name"

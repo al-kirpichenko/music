@@ -35,9 +35,52 @@ class Admin extends BaseController
         return view("admin/add_product", $this->data);
     }
 
+    /**
+     * @throws ReflectionException
+     */
+    public function createProduct(): RedirectResponse
+    {
+        $model = new ProductModel();
+
+        $data = [
+            'name"' => $this->request->getPost('name'),
+            'cost' => $this->request->getPost('cost'),
+            'category' => $this->request->getPost('category'),
+            'image' => $this->request->getPost('image'),
+            'description' => $this->request->getPost('description'),
+        ];
+
+        if ($model->insert($data) === false)
+        {
+            return redirect()->back()->withInput()->with('errors', $model->errors());
+        }
+
+        return redirect()->back()->with('success', 'Товар успешно добавлен!');
+    }
+
+
     public function addCategory(): string
     {
         return view("admin/add_category", $this->data);
+    }
+
+    /**
+     * @throws ReflectionException
+     */
+    public function createCategory(): RedirectResponse
+    {
+        $model = new CategoryModel();
+
+        $data = [
+            'name"' => $this->request->getPost('name'),
+        ];
+
+        if ($model->insert($data) === false)
+        {
+            return redirect()->back()->withInput()->with('errors', $model->errors());
+        }
+
+        return redirect()->back()->with('success', 'Категория успешно добавлена!');
     }
 
     public function editProduct($id = null): string
