@@ -1,3 +1,14 @@
+<?php
+/**
+* $data array holds the $user value
+* @see \App\Controllers\Admin::categories()
+* @var Category $category
+* @var array $categories
+*/
+
+use App\Entities\Category;
+
+?>
 <?= $this->extend("layouts/layout") ?>
 <?= $this->section("content") ?>
 <main class="content">
@@ -19,7 +30,7 @@
                 <th scope="row"><?= $category->id ?></th>
                 <td><?= $category->name ?></td>
                 <td>
-                    <a class="btn btn-primary" href="#" role="button"><i class="bi bi-pen"></i></a>
+                    <a class="btn btn-primary" href="<?= base_url()?>admin/edit-category/<?= $category->id?>" role="button"><i class="bi bi-pen"></i></a>
                     <a class="btn btn-primary" href="#" role="button"><i class="bi bi-trash"></i></a>
                 </td>
             </tr>

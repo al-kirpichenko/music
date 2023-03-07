@@ -15,7 +15,7 @@ class ProductModel extends Model
     protected $returnType       = Product::class;
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [];
+    protected $allowedFields    = ['name','cost','category','image','description'];
 
     // Dates
     protected $useTimestamps = false;
@@ -25,7 +25,9 @@ class ProductModel extends Model
     protected $deletedField  = 'deleted_at';
 
     // Validation
-    protected $validationRules      = [];
+    protected $validationRules      = ['name' => 'required','cost' => 'required','category' => 'required',
+        'image' => 'required','description'=> 'required'
+    ];
     protected $validationMessages   = [];
     protected $skipValidation       = false;
     protected $cleanValidationRules = true;
